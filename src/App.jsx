@@ -1,3 +1,4 @@
+import translations from "./translations";
 import { useState } from "react";
 import {
   Leaf,
@@ -23,6 +24,7 @@ function App() {
   const [image, setImage] = useState(null);
   const [result, setResult] = useState(null);
   const [language, setLanguage] = useState("English");
+  const t = translations[language];
   const [loading, setLoading] = useState(false);
 
   const handleImage = (event) => {
@@ -57,13 +59,14 @@ function App() {
     setPage("result");
 
     try {
-      const response = await fetch("http://localhost:5000/api/analyze", {
+      const response = await fetch("http://192.168.56.1:5000/api/analyze", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          image,
+           image,
+          language
         }),
       });
 
@@ -123,10 +126,17 @@ function App() {
               Weather
             </button>
 
-            <button className="language-button">
-              <Languages size={18} />
-              {language}
-            </button>
+            <select
+  className="language-select"
+  value={language}
+  onChange={(e) => setLanguage(e.target.value)}
+>
+  {Object.keys(translations).map((lang) => (
+    <option key={lang} value={lang}>
+      {lang}
+    </option>
+  ))}
+</select>
           </div>
         </div>
       </nav>

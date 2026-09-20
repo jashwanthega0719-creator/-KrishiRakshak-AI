@@ -27,8 +27,7 @@ app.get("/", (req, res) => {
 
 app.post("/api/analyze", async (req, res) => {
   try {
-    const { image } = req.body;
-
+    const { image, language = "English" } = req.body;
     if (!image) {
       return res.status(400).json({
         error: "No image was provided.",
@@ -56,35 +55,20 @@ app.post("/api/analyze", async (req, res) => {
     const base64Data = matches[2];
 
     const prompt = `
-You are KrishiRakshak AI, an agricultural crop-health image analysis assistant.
-
-Carefully inspect the ACTUAL uploaded crop image.
-
-Identify:
-1. The crop shown.
-2. The most likely disease, pest damage, nutrient problem, or healthy condition.
-3. Visible symptoms.
-4. Severity.
-5. Confidence estimate.
-6. Practical immediate actions.
-7. Prevention advice.
+The user has selected the language: ${language}
 
 IMPORTANT:
-- Analyze the actual image.
-- NEVER randomly choose a crop.
-- NEVER randomly choose a disease.
-- If the crop cannot be identified reliably, say "Unable to identify reliably".
-- If the disease cannot be identified reliably, say "Disease not reliably identifiable".
-- This is a preliminary visual assessment, not a laboratory diagnosis.
-- Do not provide pesticide dosage.
-- Recommend confirmation by a local agricultural expert when appropriate.
-
-Return ONLY valid JSON.
+- Return the analysis in ${language}.
+- Keep JSON keys in English.
+- Translate the crop name, disease, symptoms, severity, recommendations and prevention into ${language}.
+- Carefully analyze the actual uploaded crop image.
+- Do not randomly select a crop or disease.
+- Return ONLY valid JSON.
 
 Use EXACTLY this structure:
 
 {
-  "crop": "Detected crop",
+  "crop": "Detected crop name",
   "disease": "Likely disease or condition",
   "confidence": "90%",
   "severity": "Low",
@@ -100,6 +84,19 @@ Use EXACTLY this structure:
   ],
   "prevention": "Prevention advice"
 }
+
+IMPORTANT:
+- The key must be "crop", NOT "crop_name".
+- The key must be "recommendation", NOT "recommendations".
+- "symptoms" MUST be an array.
+- "recommendation" MUST be an array.
+- "prevention" MUST be a string.
+- "confidence" MUST be a percentage string.
+- "severity" MUST be a short value such as Low, Moderate, or High.
+- Do not add extra JSON keys.
+- Do not use Markdown.
+- Return JSON only.
+
 `;
 
     const response = await ai.models.generateContent({
@@ -156,7 +153,7 @@ Use EXACTLY this structure:
   }
 });
 
-app.listen(5000, () => {
+app.listen(5000, "0.0.0.0", () => {
   console.log("");
   console.log("================================");
   console.log("🌱 KRISHIRAKSHAK AI SERVER");
