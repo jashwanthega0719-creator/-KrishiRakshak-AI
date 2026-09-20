@@ -153,14 +153,14 @@ IMPORTANT:
   }
 });
 
-app.listen(5000, "0.0.0.0", () => {
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, "0.0.0.0", () => {
   console.log("");
   console.log("================================");
   console.log("🌱 KRISHIRAKSHAK AI SERVER");
   console.log("================================");
-  console.log("Server: http://localhost:5000");
-  console.log("AI: Gemini 2.5 Flash-Lite");
+  console.log(`Server running on port ${PORT}`);
   console.log("Status: READY");
-  console.log("Waiting for crop images...");
   console.log("");
 });
