@@ -1,16 +1,36 @@
-# React + Vite
+# 🌱 KrishiRakshak AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Smart Crop Guardian
 
-Currently, two official plugins are available:
+KrishiRakshak AI is an AI-powered crop health assistant designed to help farmers identify possible crop diseases from leaf images.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚨 Problem
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Farmers can lose significant portions of their crops when diseases are detected too late.
 
-## Expanding the ESLint configuration
+Many farmers may not have immediate access to agricultural experts, making early identification difficult.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 💡 Our Solution
+
+KrishiRakshak AI allows farmers to upload a crop leaf image and receive an AI-powered preliminary assessment.
+
+### How it works
+
+```text
+📷 Upload Crop Image
+        ↓
+🤖 AI Image Analysis
+        ↓
+🌱 Crop Identification
+        ↓
+🦠 Disease / Condition Detection
+        ↓
+🔍 Symptoms
+        ↓
+🛡️ Recommendations
+        ↓
+🌿 Prevention Advice
